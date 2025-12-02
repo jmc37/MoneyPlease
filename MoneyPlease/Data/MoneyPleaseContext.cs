@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoneyPlease.Models;
 
-public class AppDbContext : DbContext
+namespace MoneyPlease.Data;
+public class MoneyPleaseContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options)
+    public MoneyPleaseContext(DbContextOptions<MoneyPleaseContext> options)
         : base(options)
     {
     }
