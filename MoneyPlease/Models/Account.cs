@@ -8,7 +8,6 @@
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
         public Guid UserId { get; set; }
-
         public User User { get; set; }
         public List<Transaction> Transactions { get; set; }
 
