@@ -1,0 +1,38 @@
+# ================================
+# Visual Studio / .NET
+# ================================
+.vs/
+bin/
+obj/
+Debug/
+Release/
+*.dll
+*.exe
+*.pdb
+appsettings.json
+# Visual Studio cache/options
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# ================================
+# SQLite Database
+# ================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ================================
+# Logs and temporary files
+# ================================
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.DS_Store
+Thumbs.db
