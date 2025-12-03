@@ -5,17 +5,17 @@ using MoneyPlease.Models;
 using MoneyPlease.Services.Interfaces;
 namespace MoneyPlease.Services
 {
-    public class AccountService : IAccountService
+    public class UserService : IUserService
     {
         private readonly MoneyPleaseContext _context;
         private readonly ITokenService _tokenService;
-        public AccountService(MoneyPleaseContext context, ITokenService tokenService)
+        public UserService(MoneyPleaseContext context, ITokenService tokenService)
         {
             _context = context;
             _tokenService = tokenService;
         }
 
-        public async Task<ServiceResult> CreateAccountAsync(CreateAccountDto dto)
+        public async Task<ServiceResult> CreateUserAsync(CreateUserDto dto)
         {
             if(await _context.Users.AnyAsync(u =>u.Email == dto.Email))
                 return ServiceResult.Failure("Email already in use.");
@@ -32,9 +32,9 @@ namespace MoneyPlease.Services
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            AccountResponseDto response = new AccountResponseDto { Id = user.Id, Name = user.Name, Email = user.Email };
+            UserResponseDto response = new UserResponseDto { Id = user.Id, Name = user.Name, Email = user.Email };
             // Implementation for creating an account goes here
-            return ServiceResult<AccountResponseDto>.SuccessResult(response, "Account created successfully.");
+            return ServiceResult<UserResponseDto>.SuccessResult(response, "Account created successfully.");
         }
 
         public async Task<ServiceResult> LoginAsync(LoginDto dto)

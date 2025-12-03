@@ -1,6 +1,6 @@
 ﻿namespace MoneyPlease.Dtos
 {
-    public class CreateAccountDto
+    public class CreateUserDto
     {
         public required string Email { get; set; }
 

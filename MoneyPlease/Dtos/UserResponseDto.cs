@@ -1,6 +1,6 @@
 ﻿namespace MoneyPlease.Dtos
 {
-    public class AccountResponseDto
+    public class UserResponseDto
     {
         public long Id { get; set; }
         public required string Name { get; set; }

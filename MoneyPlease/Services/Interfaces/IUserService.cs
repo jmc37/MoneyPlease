@@ -1,8 +1,8 @@
 ﻿using MoneyPlease.Dtos;
 using MoneyPlease.Services;
 
-public interface IAccountService
+public interface IUserService
 {
-    Task<ServiceResult> CreateAccountAsync(CreateAccountDto dto);
+    Task<ServiceResult> CreateUserAsync(CreateUserDto dto);
     Task<ServiceResult> LoginAsync(LoginDto loginDto);
 }

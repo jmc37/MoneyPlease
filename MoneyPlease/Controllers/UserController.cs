@@ -6,18 +6,18 @@ namespace MoneyPlease.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AccountController : Controller
+    public class UserController : Controller
     {
-        private readonly  IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly  IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _accountService = accountService;
+            _userService = userService;
         }
 
-        [HttpPost("CreateAccount")]
-        public async Task<IActionResult> CreateAccount(CreateAccountDto dto)
+        [HttpPost("CreateUser")]
+        public async Task<IActionResult> CreateUser(CreateUserDto dto)
         {
-            var result = await _accountService.CreateAccountAsync(dto);
+            var result = await _userService.CreateUserAsync(dto);
             return Ok(result);
         }
 
@@ -25,7 +25,7 @@ namespace MoneyPlease.Controllers
         public async Task<IActionResult> Login(LoginDto dto)
         {
 
-            var result = await _accountService.LoginAsync(dto);
+            var result = await _userService.LoginAsync(dto);
 
             if(!result.Success)
             {
