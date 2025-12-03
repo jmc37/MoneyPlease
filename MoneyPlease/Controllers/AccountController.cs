@@ -20,5 +20,24 @@ namespace MoneyPlease.Controllers
             var result = await _accountService.CreateAccountAsync(dto);
             return Ok(result);
         }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginDto dto)
+        {
+
+            var result = await _accountService.LoginAsync(dto);
+
+            if(!result.Success)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpPost("Logout")]
+        public IActionResult Logout()
+        {
+            return Ok();
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace MoneyPlease.Services
     public interface IAccountService
     {
         Task<ServiceResult> CreateAccountAsync(CreateAccountDto dto);
+        Task<ServiceResult> LoginAsync(LoginDto loginDto);
     }
     public class AccountService : IAccountService
     {
@@ -38,6 +39,20 @@ namespace MoneyPlease.Services
             AccountResponseDto response = new AccountResponseDto { Id = user.Id, Name = user.Name, Email = user.Email };
             // Implementation for creating an account goes here
             return ServiceResult<AccountResponseDto>.SuccessResult(response, "Account created successfully.");
+        }
+
+        public async Task<ServiceResult> LoginAsync(LoginDto dto)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
+            if (user == null)
+                return ServiceResult.Failure("Invalid Email");
+
+            bool isValid = BCrypt.Net.BCrypt.Verify(dto.Password, user.Password);
+            if (!isValid)
+                return ServiceResult.Failure("Incorrect password");
+
+            var response = new LoginResponseDto {Id = user.Id, Email = dto.Email, Name = user.Name };
+            return ServiceResult<LoginResponseDto>.SuccessResult(response, "Login successful"); ;
         }
     }
 }
