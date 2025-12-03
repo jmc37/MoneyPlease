@@ -2,11 +2,11 @@
 {
     public class Transaction
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public required string Title { get; set; }
 
         public decimal Cost { get; set; }
-        public Guid AccountId { get; set; }
+        public long AccountId { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

@@ -2,7 +2,7 @@
 {
     public class User
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public required String Name { get; set; }
         public required string Password { get; set; }
         public string? PhoneNumber { get; set; }

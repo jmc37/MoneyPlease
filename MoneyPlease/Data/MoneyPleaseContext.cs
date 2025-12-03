@@ -28,7 +28,7 @@ public class MoneyPleaseContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasColumnName("id")
-                .HasDefaultValueSql("NEWSEQUENTIALID()");
+                .UseIdentityColumn();
 
             entity.Property(e => e.Name)
                 .HasColumnName("user_name")
@@ -69,7 +69,7 @@ public class MoneyPleaseContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasColumnName("Id")
-                .HasDefaultValueSql("NEWSEQUENTIALID()");
+                .UseIdentityColumn();
 
             entity.Property(e => e.UserId)
                 .HasColumnName("user_id")
@@ -106,7 +106,7 @@ public class MoneyPleaseContext : DbContext
 
             entity.Property(e => e.Id)
                 .HasColumnName("transaction_id")
-                .HasDefaultValueSql("NEWSEQUENTIALID()");
+                .UseIdentityColumn();
 
             entity.Property(e => e.Title)
                 .HasColumnName("title")

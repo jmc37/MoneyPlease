@@ -15,10 +15,11 @@ namespace MoneyPlease.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWSEQUENTIALID()"),
+                    id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     user_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     password = table.Column<string>(type: "char(60)", nullable: false),
-                    phone_number = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    phone_number = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: true),
                     email = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     last_updated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()")
@@ -32,11 +33,12 @@ namespace MoneyPlease.Migrations
                 name: "Account",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWSEQUENTIALID()"),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     last_updated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    user_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    user_id = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,10 +55,11 @@ namespace MoneyPlease.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    transaction_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWSEQUENTIALID()"),
+                    transaction_id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     cost = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    account_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    account_id = table.Column<long>(type: "bigint", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     LastUpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

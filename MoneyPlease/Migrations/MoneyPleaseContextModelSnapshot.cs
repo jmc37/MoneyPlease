@@ -24,11 +24,12 @@ namespace MoneyPlease.Migrations
 
             modelBuilder.Entity("MoneyPlease.Models.Account", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Id")
-                        .HasDefaultValueSql("NEWSEQUENTIALID()");
+                        .HasColumnType("bigint")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -48,8 +49,8 @@ namespace MoneyPlease.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("name");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier")
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
@@ -61,14 +62,15 @@ namespace MoneyPlease.Migrations
 
             modelBuilder.Entity("MoneyPlease.Models.Transaction", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("transaction_id")
-                        .HasDefaultValueSql("NEWSEQUENTIALID()");
+                        .HasColumnType("bigint")
+                        .HasColumnName("transaction_id");
 
-                    b.Property<Guid>("AccountId")
-                        .HasColumnType("uniqueidentifier")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint")
                         .HasColumnName("account_id");
 
                     b.Property<decimal>("Cost")
@@ -99,11 +101,12 @@ namespace MoneyPlease.Migrations
 
             modelBuilder.Entity("MoneyPlease.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id")
-                        .HasDefaultValueSql("NEWSEQUENTIALID()");
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
