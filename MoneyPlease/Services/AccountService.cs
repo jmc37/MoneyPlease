@@ -2,21 +2,17 @@
 using MoneyPlease.Data;
 using MoneyPlease.Dtos;
 using MoneyPlease.Models;
-
+using MoneyPlease.Services.Interfaces;
 namespace MoneyPlease.Services
 {
-
-    public interface IAccountService
-    {
-        Task<ServiceResult> CreateAccountAsync(CreateAccountDto dto);
-        Task<ServiceResult> LoginAsync(LoginDto loginDto);
-    }
     public class AccountService : IAccountService
     {
         private readonly MoneyPleaseContext _context;
-        public AccountService(MoneyPleaseContext context)
+        private readonly ITokenService _tokenService;
+        public AccountService(MoneyPleaseContext context, ITokenService tokenService)
         {
             _context = context;
+            _tokenService = tokenService;
         }
 
         public async Task<ServiceResult> CreateAccountAsync(CreateAccountDto dto)
@@ -51,7 +47,8 @@ namespace MoneyPlease.Services
             if (!isValid)
                 return ServiceResult.Failure("Incorrect password");
 
-            var response = new LoginResponseDto {Id = user.Id, Email = dto.Email, Name = user.Name };
+            var token = _tokenService.GenerateToken(user);
+            var response = new LoginResponseDto { Id = user.Id, Email = dto.Email, Name = user.Name, Token = token };
             return ServiceResult<LoginResponseDto>.SuccessResult(response, "Login successful"); ;
         }
     }

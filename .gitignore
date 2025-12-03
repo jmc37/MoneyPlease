@@ -9,7 +9,7 @@ Release/
 *.dll
 *.exe
 *.pdb
-
+appsettings*.json
 # Visual Studio cache/options
 *.user
 *.suo
