@@ -50,7 +50,7 @@ public class MoneyPleaseContext : DbContext
 
             entity.Property(e => e.PhoneNumber)
                 .HasColumnName("phone_number")
-                .HasMaxLength(25);
+                .HasMaxLength(25).IsRequired(false);
 
             entity.Property(e => e.Email)
                 .HasColumnName("email")

@@ -1,6 +1,43 @@
-﻿namespace MoneyPlease.Services
+﻿using Microsoft.EntityFrameworkCore;
+using MoneyPlease.Data;
+using MoneyPlease.Dtos;
+using MoneyPlease.Models;
+
+namespace MoneyPlease.Services
 {
-    public class AccountService
+
+    public interface IAccountService
     {
+        Task<ServiceResult> CreateAccountAsync(CreateAccountDto dto);
+    }
+    public class AccountService : IAccountService
+    {
+        private readonly MoneyPleaseContext _context;
+        public AccountService(MoneyPleaseContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<ServiceResult> CreateAccountAsync(CreateAccountDto dto)
+        {
+            if(await _context.Users.AnyAsync(u =>u.Email == dto.Email))
+                return ServiceResult.Failure("Email already in use.");
+
+            var hash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+
+            var user = new User
+            {
+                Name = dto.Name,
+                Email = dto.Email,
+                Password = hash,
+                PhoneNumber = dto.PhoneNumber
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            AccountResponseDto response = new AccountResponseDto { Id = user.Id, Name = user.Name, Email = user.Email };
+            // Implementation for creating an account goes here
+            return ServiceResult<AccountResponseDto>.SuccessResult(response, "Account created successfully.");
+        }
     }
 }

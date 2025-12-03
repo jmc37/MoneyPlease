@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MoneyPlease.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MoneyPlease.Data.MoneyPleaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MoneyPlease") ?? throw new InvalidOperationException("Connection string 'MoneyPleaseContext' not found.")));
+builder.Services.AddScoped<IAccountService, AccountService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,12 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MoneyPlease.Dtos;
+using MoneyPlease.Services;
 
 namespace MoneyPlease.Controllers
 {
-    public class HomeController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class AccountController : Controller
     {
-        public IActionResult Index()
+        private readonly  IAccountService _accountService;
+        public AccountController(IAccountService accountService)
         {
-            return View();
+            _accountService = accountService;
+        }
+
+        [HttpPost("CreateAccount")]
+        public async Task<IActionResult> CreateAccount(CreateAccountDto dto)
+        {
+            var result = await _accountService.CreateAccountAsync(dto);
+            return Ok(result);
         }
     }
 }

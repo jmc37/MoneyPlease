@@ -23,4 +23,11 @@
             };
         }
     }
+    public class ServiceResult<T> : ServiceResult
+    {
+        public T data { get; set; }
+        public static ServiceResult<T> SuccessResult(T data, string message = "")
+
+            => new ServiceResult<T> { Success = true, Message = message, data = data };
+    }
 }

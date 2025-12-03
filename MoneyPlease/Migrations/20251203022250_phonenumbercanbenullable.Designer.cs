@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoneyPlease.Data;
 
@@ -11,9 +12,11 @@ using MoneyPlease.Data;
 namespace MoneyPlease.Migrations
 {
     [DbContext(typeof(MoneyPleaseContext))]
-    partial class MoneyPleaseContextModelSnapshot : ModelSnapshot
+    [Migration("20251203022250_phonenumbercanbenullable")]
+    partial class phonenumbercanbenullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
