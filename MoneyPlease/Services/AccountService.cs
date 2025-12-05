@@ -1,4 +1,6 @@
-﻿using MoneyPlease.Data;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using MoneyPlease.Data;
 using MoneyPlease.Dtos;
 using MoneyPlease.Models;
 using MoneyPlease.Services.Interfaces;
@@ -13,16 +15,36 @@ namespace MoneyPlease.Services
         }
         public async Task<ServiceResult> CreateAccountAsync(CreateAccountDto dto)
         {
-            Account account = new Account() { Name = dto.AccountName, UserId = dto.UserId };
+            var account = new Account() { Name = dto.AccountName, UserId = dto.UserId };
             _context.Accounts.Add(account);
             await _context.SaveChangesAsync();
             AccountResponseDto response = new AccountResponseDto() { Name = dto.AccountName, AccountId = account.Id };
             return ServiceResult<AccountResponseDto>.SuccessResult(response);
         }
 
-        public bool DeleteAccountAsync(long id)
+        public async Task<ServiceResult> GetAccountsAsync(long userId)
         {
-            return true;
+            var accounts = await _context.Accounts
+                .Where(a => a.UserId == userId)
+                .Select(a => new AccountResponseDto { AccountId = a.Id, Name = a.Name })
+                .ToListAsync();
+            return ServiceResult<List<AccountResponseDto>>.SuccessResult(accounts);
+        }
+        public async Task<ServiceResult> GetAccountAsync(long id)
+        {
+            var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
+            if(account == null) 
+                return ServiceResult.Failure("Account doesn't exist");
+            AccountResponseDto response = new AccountResponseDto() { Name = account.Name, AccountId = account.Id };
+            return ServiceResult<AccountResponseDto>.SuccessResult(response);
+        }
+
+        public async Task<ServiceResult> DeleteAccountAsync(long id)
+        {
+            var rows = await _context.Accounts.Where(a => a.Id == id).ExecuteDeleteAsync();
+            if (rows == 0)
+                return ServiceResult.Failure("Account doesn't exist");
+            return ServiceResult.SuccessResult("Account succesfully deleted");
         }
         
     }

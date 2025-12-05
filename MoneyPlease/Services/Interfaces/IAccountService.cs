@@ -1,5 +1,4 @@
 ﻿using MoneyPlease.Dtos;
-using MoneyPlease.Models;
 
 namespace MoneyPlease.Services.Interfaces
 {
@@ -7,6 +6,9 @@ namespace MoneyPlease.Services.Interfaces
     {
         Task<ServiceResult> CreateAccountAsync (CreateAccountDto dto);
 
-        bool DeleteAccountAsync (long id);
+        Task<ServiceResult> GetAccountsAsync(long userId);
+        Task<ServiceResult> GetAccountAsync(long id);
+
+        Task<ServiceResult> DeleteAccountAsync (long id);
     }
 }

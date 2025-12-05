@@ -1,4 +1,5 @@
 ﻿using MoneyPlease.Dtos;
+using MoneyPlease.Models;
 using MoneyPlease.Services;
 
 public interface IUserService
