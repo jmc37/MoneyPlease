@@ -8,7 +8,7 @@ namespace MoneyPlease.Controllers
     [Route("[controller]")]
     public class UserController : Controller
     {
-        private readonly  IUserService _userService;
+        private readonly IUserService _userService;
         public UserController(IUserService userService)
         {
             _userService = userService;
