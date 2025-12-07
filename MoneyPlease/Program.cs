@@ -48,6 +48,7 @@ builder.Services.AddDbContext<MoneyPlease.Data.MoneyPleaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MoneyPlease") ?? throw new InvalidOperationException("Connection string 'MoneyPleaseContext' not found.")));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 
