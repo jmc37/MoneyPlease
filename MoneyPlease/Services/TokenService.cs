@@ -17,11 +17,11 @@ namespace MoneyPlease.Services
         public string GenerateToken(User user)
         {
             var jwtSection = _config.GetSection("JWT");
-            var jwtKey = jwtSection["Key"];
+            var jwtKey = jwtSection["Key"] ?? throw new InvalidOperationException("JWT signing key is missing!"); ;
             var jwtIssuer = jwtSection["Issuer"];
             var jwtAudience = jwtSection["Audience"];
             var expireMinutes = int.Parse(jwtSection["ExpireMinutes"] ?? "60");
-            var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtKey));
+            var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(jwtKey) ) ;
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]

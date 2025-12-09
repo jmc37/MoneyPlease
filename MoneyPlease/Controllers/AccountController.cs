@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MoneyPlease.Dtos;
 using MoneyPlease.Services.Interfaces;
-
+using MoneyPlease.Extensions;
 namespace MoneyPlease.Controllers
 {
     [ApiController]
+    [Route("api/accounts")]
+    [Authorize]
     public class AccountController : ControllerBase 
     {
         IAccountService _accountService;
@@ -14,31 +16,35 @@ namespace MoneyPlease.Controllers
             _accountService = accountService;
         }
 
-        [HttpPost("account/CreateAccount")]
+        [HttpPost("/CreateAccount")]
         public async Task<IActionResult> CreateAccount(CreateAccountDto dto)
         {
-            var result = await _accountService.CreateAccountAsync(dto); 
+            long userId = User.GetUserId();
+            var result = await _accountService.CreateAccountAsync(userId, dto); 
             return Ok(result); 
         }
 
-        [HttpGet("user/{userId}/GetAccounts")]
-        public async Task<IActionResult> GetAccounts(long id)
+        [HttpGet]
+        public async Task<IActionResult> GetAccounts()
         {
-            var result = await _accountService.GetAccountsAsync(id);
+            long userId = User.GetUserId();
+            var result = await _accountService.GetAccountsAsync(userId);
             return Ok(result);
         }
 
-        [HttpGet("account/{id}/GetAccount")]
-        public async Task<IActionResult> GetAccount(long id)
+        [HttpGet("{accountId:long}")]
+        public async Task<IActionResult> GetAccount(long accountId)
         {
-            var result = await _accountService.GetAccountAsync(id);
+            long userId = User.GetUserId();
+            var result = await _accountService.GetAccountAsync(userId, accountId);
             return Ok(result);
         }
 
-        [HttpDelete("account/{id}/DeleteAccount")]
-        public async Task<IActionResult> DeleteAccount(long id)
+        [HttpDelete("{accountId:long}")]
+        public async Task<IActionResult> DeleteAccount(long accountId)
         {
-            var result = await _accountService.DeleteAccountAsync(id);
+            long userId = User.GetUserId();
+            var result = await _accountService.DeleteAccountAsync(userId, accountId);
             return Ok(result);
         }
     }

@@ -3,7 +3,6 @@
     public class Account
     {
         public long Id { get; set; }
-
         public required string Name { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastUpdatedAt { get; set; }
