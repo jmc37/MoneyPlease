@@ -80,6 +80,12 @@ public class MoneyPleaseContext : DbContext
                 .HasMaxLength(100)
                 .IsRequired();
 
+            entity.Property(e => e.Balance)
+                .HasColumnName("balance")
+                .HasColumnType("decimal(10,2)")
+                .HasDefaultValue(0)
+                .IsRequired();
+
             entity.Property(e => e.CreatedAt)
                 .HasColumnName("created_at")
                 .HasDefaultValueSql("GETDATE()");

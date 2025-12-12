@@ -15,7 +15,7 @@ namespace MoneyPlease.Services
         }
         public async Task<ServiceResult> CreateAccountAsync(long userId, CreateAccountDto dto)
         {
-            var account = new Account() { Name = dto.AccountName, UserId = userId };
+            var account = new Account() { Name = dto.AccountName, Balance = 0, UserId = userId };
             _context.Accounts.Add(account);
             await _context.SaveChangesAsync();
             AccountResponseDto response = new AccountResponseDto() { Name = dto.AccountName, AccountId = account.Id };
