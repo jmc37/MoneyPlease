@@ -123,9 +123,13 @@ public class MoneyPleaseContext : DbContext
                 .HasColumnName("CreatedAt")
                 .IsRequired();
 
-            entity.Property(e => e.Cost)
-                .HasColumnName("cost")
-                .HasColumnType("decimal(10,2)")
+            entity.Property(e => e.LastUpdatedAt)
+                 .HasColumnName("last_updated")
+                 .HasDefaultValueSql("GETDATE()");
+
+            entity.Property(e => e.Amount)
+                .HasColumnName("amount")
+                .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
             entity.Property(e => e.AccountId)
