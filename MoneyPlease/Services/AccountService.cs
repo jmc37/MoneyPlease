@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MoneyPlease.Data;
-using MoneyPlease.Dtos;
+using MoneyPlease.Dtos.Account;
 using MoneyPlease.Models;
 using MoneyPlease.Services.Interfaces;
 

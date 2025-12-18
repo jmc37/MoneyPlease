@@ -1,4 +1,4 @@
-﻿using MoneyPlease.Dtos;
+﻿using MoneyPlease.Dtos.Account;
 
 namespace MoneyPlease.Services.Interfaces
 {

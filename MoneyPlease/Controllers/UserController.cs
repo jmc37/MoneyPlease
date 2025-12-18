@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MoneyPlease.Dtos;
+using MoneyPlease.Dtos.User;
 using MoneyPlease.Services;
 
 namespace MoneyPlease.Controllers

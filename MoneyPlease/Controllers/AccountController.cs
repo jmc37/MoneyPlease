@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MoneyPlease.Dtos;
 using MoneyPlease.Services.Interfaces;
 using MoneyPlease.Extensions;
+using MoneyPlease.Dtos.Account;
 namespace MoneyPlease.Controllers
 {
     [ApiController]

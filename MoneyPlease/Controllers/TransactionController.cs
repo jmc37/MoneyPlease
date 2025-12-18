@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MoneyPlease.Dtos.Transaction;
+using MoneyPlease.Services;
+using MoneyPlease.Services.Interfaces;
 
 namespace MoneyPlease.Controllers
 {
@@ -6,23 +9,36 @@ namespace MoneyPlease.Controllers
     [Route("api/transaction")]
     public class TransactionController : Controller
     {
+        ITransactionService _transactionService;
 
+        public TransactionController(ITransactionService transactionService)
+        {
+            _transactionService = transactionService;
+        }
+
+        [HttpGet]
         public IActionResult GetTransaction(string transactionId)
         {
-            return View();
+            return Ok();
         }
 
-        public IActionResult CreateTransaction()
+        [HttpPost]
+        public IActionResult CreateTransaction(CreateTransactionDto dto)
         {
-            return View();
+
+            return Ok();
         }
+
+        [HttpPut]
         public IActionResult UpdateTransaction(string transactionId)
         {
-            return View();
+            return Ok();
         }
+
+        [HttpDelete]
         public IActionResult DeleteTransaction(string transactionId)
         {
-            return View();
+            return Ok();
         }
     }
 }

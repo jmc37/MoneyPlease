@@ -1,4 +1,4 @@
-﻿using MoneyPlease.Dtos;
+﻿using MoneyPlease.Dtos.User;
 using MoneyPlease.Models;
 using MoneyPlease.Services;
 

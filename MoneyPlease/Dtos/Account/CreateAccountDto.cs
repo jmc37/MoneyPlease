@@ -1,4 +1,4 @@
-﻿namespace MoneyPlease.Dtos
+﻿namespace MoneyPlease.Dtos.Account
 {
     public class CreateAccountDto
     {

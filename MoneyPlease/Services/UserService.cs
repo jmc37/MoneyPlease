@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoneyPlease.Data;
-using MoneyPlease.Dtos;
+using MoneyPlease.Dtos.User;
 using MoneyPlease.Models;
 using MoneyPlease.Services.Interfaces;
 namespace MoneyPlease.Services
