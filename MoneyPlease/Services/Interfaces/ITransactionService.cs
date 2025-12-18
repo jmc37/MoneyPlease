@@ -6,7 +6,6 @@ namespace MoneyPlease.Services.Interfaces
     {
         public Task GetTransaction(string transactionId);
         public Task CreateTrasaction(CreateTransactionDto dto);
-
         public Task UpdateTransaction(CreateTransactionDto transaction);
         public Task DeleteTrasaction(string transactionId);
 
