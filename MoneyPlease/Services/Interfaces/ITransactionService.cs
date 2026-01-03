@@ -4,10 +4,10 @@ namespace MoneyPlease.Services.Interfaces
 {
     public interface ITransactionService
     {
-        public Task GetTransaction(string transactionId);
-        public Task CreateTrasaction(CreateTransactionDto dto);
-        public Task UpdateTransaction(CreateTransactionDto transaction);
-        public Task DeleteTrasaction(string transactionId);
+        public Task<ServiceResult> GetTransaction(string transactionId);
+        public Task<ServiceResult> CreateTrasaction(long UserId, CreateTransactionDto dto);
+        public Task<ServiceResult> UpdateTransaction(CreateTransactionDto transaction);
+        public Task<ServiceResult> DeleteTrasaction(string transactionId);
 
     }
 }

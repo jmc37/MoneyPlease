@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MoneyPlease.Dtos.Transaction;
+using MoneyPlease.Extensions;
 using MoneyPlease.Services;
 using MoneyPlease.Services.Interfaces;
 
@@ -25,7 +26,8 @@ namespace MoneyPlease.Controllers
         [HttpPost]
         public IActionResult CreateTransaction(CreateTransactionDto dto)
         {
-
+            long user = User.GetUserId();
+            var result = _transactionService.CreateTrasaction(user, dto);
             return Ok();
         }
 
