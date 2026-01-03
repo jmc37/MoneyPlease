@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Transactions;
+using Microsoft.EntityFrameworkCore;
 using MoneyPlease.Data;
 using MoneyPlease.Dtos.Transaction;
 using MoneyPlease.Services.Interfaces;
@@ -24,19 +25,30 @@ namespace MoneyPlease.Services
             return ServiceResult<TransactionResponseDto>.SuccessResult(response);
         }
 
-        public Task<ServiceResult> DeleteTrasaction(string transactionId)
+        public async Task<ServiceResult> DeleteTrasaction(string transactionId)
         {
-            throw new NotImplementedException();
+            await _context.Transactions.Where(t => t.Id.ToString() == transactionId).ExecuteDeleteAsync();
+            return ServiceResult.SuccessResult("Transaction successfully deleted");
         }
 
-        public Task<ServiceResult> GetTransaction(string transactionId)
+        public async Task<ServiceResult> GetTransaction(string transactionId)
         {
-            throw new NotImplementedException();
+            var transaction = await _context.Transactions.FirstOrDefaultAsync(t => t.Id.ToString() == transactionId);
+            if (transaction == null)
+                return ServiceResult.Failure("Transaction doesn't exist");
+            TransactionResponseDto response = new TransactionResponseDto { Id = transaction.AccountId, Title = transaction.Title };
+            return ServiceResult<TransactionResponseDto>.SuccessResult(response);
         }
 
-        public Task<ServiceResult> UpdateTransaction(CreateTransactionDto transaction)
+        public async Task<ServiceResult> UpdateTransaction(UpdateTransactionDto transaction)
         {
-            throw new NotImplementedException();
+            await _context.Transactions.Where(t => t.Id == transaction.Id)
+                .ExecuteUpdateAsync(t => t
+                    .SetProperty(t => t.Title, transaction.Title)
+                    .SetProperty(t => t.Amount, transaction.Amount)
+                );
+            await _context.SaveChangesAsync();
+            return ServiceResult.SuccessResult("Transaction successfully updated");
         }
         //public Task GetTransaction(string transactionId) { }
 
