@@ -20,10 +20,10 @@ namespace MoneyPlease.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTransaction(string transactionId)
+        public async Task<IActionResult> GetTransaction(long transactionId)
         {
             long userId = User.GetUserId();
-            var result = await _transactionService.GetTransaction(userId, long.Parse(transactionId));
+            var result = await _transactionService.GetTransaction(userId, transactionId);
             return Ok(result);
         }
 
@@ -43,7 +43,7 @@ namespace MoneyPlease.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{transactionId}")]
         public async Task<IActionResult> DeleteTransaction(string transactionId)
         {
             long userId = User.GetUserId();
