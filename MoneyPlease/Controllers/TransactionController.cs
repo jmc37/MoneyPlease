@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MoneyPlease.Dtos.Transaction;
 using MoneyPlease.Extensions;
 using MoneyPlease.Services;
@@ -8,6 +9,7 @@ namespace MoneyPlease.Controllers
 {
     [ApiController]
     [Route("api/transaction")]
+    [Authorize]
     public class TransactionController : Controller
     {
         ITransactionService _transactionService;
@@ -18,29 +20,35 @@ namespace MoneyPlease.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTransaction(string transactionId)
+        public async Task<IActionResult> GetTransaction(string transactionId)
         {
-            return Ok();
+            long userId = User.GetUserId();
+            var result = await _transactionService.GetTransaction(userId, long.Parse(transactionId));
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult CreateTransaction(CreateTransactionDto dto)
+        public async Task<IActionResult> CreateTransaction(CreateTransactionDto dto)
         {
             long user = User.GetUserId();
-            var result = _transactionService.CreateTrasaction(user, dto);
-            return Ok();
+            var result = await _transactionService.CreateTrasaction(user, dto);
+            return Ok(result);
         }
 
         [HttpPut]
-        public IActionResult UpdateTransaction(string transactionId)
+        public async Task<IActionResult> UpdateTransaction(UpdateTransactionDto dto)
         {
-            return Ok();
+            long userId = User.GetUserId();
+            var result = await _transactionService.UpdateTransaction(userId, dto);
+            return Ok(result);
         }
 
         [HttpDelete]
-        public IActionResult DeleteTransaction(string transactionId)
+        public async Task<IActionResult> DeleteTransaction(string transactionId)
         {
-            return Ok();
+            long userId = User.GetUserId();
+            var result = await _transactionService.DeleteTrasaction(userId, long.Parse(transactionId));
+            return Ok(result);
         }
     }
 }

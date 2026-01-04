@@ -16,7 +16,7 @@ namespace MoneyPlease.Controllers
             _accountService = accountService;
         }
 
-        [HttpPost("/CreateAccount")]
+        [HttpPost]
         public async Task<IActionResult> CreateAccount(CreateAccountDto dto)
         {
             long userId = User.GetUserId();

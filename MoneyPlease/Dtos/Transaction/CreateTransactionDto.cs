@@ -11,7 +11,7 @@ namespace MoneyPlease.Dtos.Transaction
         [Required, Range(0.01, 1000000)]
         public decimal Amount { get; set; }
         [Required, Range(0,1)]
-        public TransactionType Type { get; set; }
+        public TransactionType TransactionType { get; set; }
         public required long AccountId { get; set; }
 
         [MaxLength(500)]

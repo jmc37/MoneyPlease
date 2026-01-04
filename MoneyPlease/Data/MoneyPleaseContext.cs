@@ -132,6 +132,10 @@ public class MoneyPleaseContext : DbContext
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
+            entity.Property(e => e.TransactionType)
+                .HasColumnName("transaction_type")
+                .IsRequired();
+
             entity.Property(e => e.AccountId)
                 .HasColumnName("account_id")
                 .IsRequired();
