@@ -16,6 +16,5 @@ namespace MoneyPlease.Dtos.Transaction
 
         [MaxLength(500)]
         public string? Description { get; set; }
-        public DateTime Date { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace MoneyPlease.Services
                 Title = dto.Title,
                 Amount = dto.Amount,
                 AccountId = dto.AccountId,
+                TransactionType = dto.TransactionType,
                 CreatedAt = DateTime.UtcNow,
                 LastUpdatedAt = DateTime.UtcNow
             };
@@ -44,7 +45,7 @@ namespace MoneyPlease.Services
         public async Task<ServiceResult> GetTransaction(long userId, long transactionId)
         {
             var transaction = await _context.Transactions.Where(t => t.Id == transactionId && t.Account.UserId == userId)
-                .Select(t => new TransactionResponseDto { Id = t.Id, Title = t.Title })
+                .Select(t => new TransactionResponseDto { Id = t.Id, Title = t.Title, Amount = t.Amount, TransactionType = t.TransactionType })
                 .FirstOrDefaultAsync();
             if (transaction == null)
                 return ServiceResult.Failure("Transaction doesn't exist");
