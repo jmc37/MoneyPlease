@@ -19,18 +19,23 @@ namespace MoneyPlease.Services
             var account = await _context.Accounts.FirstOrDefaultAsync(account => account.Id == dto.AccountId && account.UserId == userId);
             if (account == null)
                 return ServiceResult.Failure("Account doesn't exist");
+            var signedAmount = dto.TransactionType == Enums.TransactionType.Expense ? -dto.Amount : dto.Amount;
             var entity = new Transaction
             {
                 Title = dto.Title,
-                Amount = dto.Amount,
+                Amount = signedAmount,
                 AccountId = dto.AccountId,
                 TransactionType = dto.TransactionType,
                 CreatedAt = DateTime.UtcNow,
                 LastUpdatedAt = DateTime.UtcNow
             };
+            await using var tx = await _context.Database.BeginTransactionAsync();
+            await _context.Accounts.Where(a => a.Id == account.Id).ExecuteUpdateAsync(a =>
+            a.SetProperty(a => a.Balance,a => a.Balance + signedAmount));
             _context.Transactions.Add(entity);
             await _context.SaveChangesAsync();
-            TransactionResponseDto response = new TransactionResponseDto { Id = dto.AccountId, Title = dto.Title, Amount = dto.Amount };
+            await tx.CommitAsync();
+            TransactionResponseDto response = new TransactionResponseDto { Id = entity.Id, Title = dto.Title, Amount = signedAmount };
             return ServiceResult<TransactionResponseDto>.SuccessResult(response);
         }
 
