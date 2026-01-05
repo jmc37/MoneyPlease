@@ -18,7 +18,7 @@ namespace MoneyPlease.Services
             var account = new Account() { Name = dto.AccountName, Balance = 0, UserId = userId };
             _context.Accounts.Add(account);
             await _context.SaveChangesAsync();
-            AccountResponseDto response = new AccountResponseDto() { Name = dto.AccountName, AccountId = account.Id };
+            AccountResponseDto response = new AccountResponseDto() { Name = dto.AccountName, AccountId = account.Id, Balance = account.Balance };
             return ServiceResult<AccountResponseDto>.SuccessResult(response);
         }
 
@@ -26,7 +26,7 @@ namespace MoneyPlease.Services
         {
             var accounts = await _context.Accounts
                 .Where(a => a.UserId == userId)
-                .Select(a => new AccountResponseDto { AccountId = a.Id, Name = a.Name })
+                .Select(a => new AccountResponseDto { AccountId = a.Id, Name = a.Name, Balance = a.Balance})
                 .ToListAsync();
             return ServiceResult<List<AccountResponseDto>>.SuccessResult(accounts);
         }
@@ -35,7 +35,7 @@ namespace MoneyPlease.Services
             var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == accountId && a.UserId == userId);
             if(account == null) 
                 return ServiceResult.Failure("Account doesn't exist");
-            AccountResponseDto response = new AccountResponseDto() { Name = account.Name, AccountId = account.Id };
+            AccountResponseDto response = new AccountResponseDto() { Name = account.Name, AccountId = account.Id , Balance = account.Balance };
             return ServiceResult<AccountResponseDto>.SuccessResult(response);
         }
 
