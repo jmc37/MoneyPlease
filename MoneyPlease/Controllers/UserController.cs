@@ -5,7 +5,7 @@ using MoneyPlease.Services;
 namespace MoneyPlease.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/user")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -14,14 +14,14 @@ namespace MoneyPlease.Controllers
             _userService = userService;
         }
 
-        [HttpPost("CreateUser")]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateUser(CreateUserDto dto)
         {
             var result = await _userService.CreateUserAsync(dto);
             return Ok(result);
         }
 
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
 
@@ -34,7 +34,7 @@ namespace MoneyPlease.Controllers
             return Ok(result);
         }
 
-        [HttpPost("Logout")]
+        [HttpPost("logout")]
         public IActionResult Logout()
         {
             return Ok();
